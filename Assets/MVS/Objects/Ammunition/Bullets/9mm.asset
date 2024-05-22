@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d9359da85044f63a4cc88c5f0a83b3, type: 3}
+  m_Name: 9mm
+  m_EditorClassIdentifier: 
+  Name: 9mm
+  Damage: 2
+  Recoil: 1
+  Mass: 0.0033
+  StartingVelocity: 170
+  AssociatedPrefab: {fileID: 4775426889262432523, guid: d30a1d77d85e647ddb6007b40979a2dc, type: 3}
