@@ -53,6 +53,24 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ExamineMagazine"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ee1777f-44c1-44a7-8d79-739cd669af0c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ExamineWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3379c5d-3738-47ba-be64-f2571a9bc351"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -130,6 +148,28 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0eca99b0-841b-42d6-b06e-ae0504714ade"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExamineMagazine"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""237aa4bf-1579-4390-b447-73619fb6302c"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExamineWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -251,6 +291,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Main_Movement = m_Main.FindAction("Movement", throwIfNotFound: true);
         m_Main_Rotation = m_Main.FindAction("Rotation", throwIfNotFound: true);
         m_Main_Shoot = m_Main.FindAction("Shoot", throwIfNotFound: true);
+        m_Main_ExamineMagazine = m_Main.FindAction("ExamineMagazine", throwIfNotFound: true);
+        m_Main_ExamineWeapon = m_Main.FindAction("ExamineWeapon", throwIfNotFound: true);
         // Selecting Weapons
         m_SelectingWeapons = asset.FindActionMap("Selecting Weapons", throwIfNotFound: true);
         m_SelectingWeapons_SelectFirst = m_SelectingWeapons.FindAction("SelectFirst", throwIfNotFound: true);
@@ -322,6 +364,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_Movement;
     private readonly InputAction m_Main_Rotation;
     private readonly InputAction m_Main_Shoot;
+    private readonly InputAction m_Main_ExamineMagazine;
+    private readonly InputAction m_Main_ExamineWeapon;
     public struct MainActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -329,6 +373,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Main_Movement;
         public InputAction @Rotation => m_Wrapper.m_Main_Rotation;
         public InputAction @Shoot => m_Wrapper.m_Main_Shoot;
+        public InputAction @ExamineMagazine => m_Wrapper.m_Main_ExamineMagazine;
+        public InputAction @ExamineWeapon => m_Wrapper.m_Main_ExamineWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -347,6 +393,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
+            @ExamineMagazine.started += instance.OnExamineMagazine;
+            @ExamineMagazine.performed += instance.OnExamineMagazine;
+            @ExamineMagazine.canceled += instance.OnExamineMagazine;
+            @ExamineWeapon.started += instance.OnExamineWeapon;
+            @ExamineWeapon.performed += instance.OnExamineWeapon;
+            @ExamineWeapon.canceled += instance.OnExamineWeapon;
         }
 
         private void UnregisterCallbacks(IMainActions instance)
@@ -360,6 +412,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
+            @ExamineMagazine.started -= instance.OnExamineMagazine;
+            @ExamineMagazine.performed -= instance.OnExamineMagazine;
+            @ExamineMagazine.canceled -= instance.OnExamineMagazine;
+            @ExamineWeapon.started -= instance.OnExamineWeapon;
+            @ExamineWeapon.performed -= instance.OnExamineWeapon;
+            @ExamineWeapon.canceled -= instance.OnExamineWeapon;
         }
 
         public void RemoveCallbacks(IMainActions instance)
@@ -460,6 +518,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnRotation(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnExamineMagazine(InputAction.CallbackContext context);
+        void OnExamineWeapon(InputAction.CallbackContext context);
     }
     public interface ISelectingWeaponsActions
     {

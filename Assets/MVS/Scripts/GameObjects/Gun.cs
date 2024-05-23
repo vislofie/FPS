@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using MVS.Static;
 using UnityEngine;
 
@@ -8,7 +6,9 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private Transform _shootPoint;
     [SerializeField]
-    private List<BulletObject> _bullets = new List<BulletObject>();
+    private Magazine _insertedMagazine;
+    [SerializeField]
+    private Transform _magazineSlot;
 
     private void Awake()
     {
@@ -17,11 +17,12 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        BulletObject bullet = _bullets.LastOrDefault();
+        if (!gameObject.activeInHierarchy)
+            return;
+        
+        BulletObject bullet = _insertedMagazine.TopMostBullet;
         if (bullet == null)
             return;
-
-        _bullets.Remove(bullet);
         
         GameObject spawnedBullet = Instantiate(bullet.AssociatedPrefab, _shootPoint.transform.position, Quaternion.identity, null);
         spawnedBullet.transform.rotation = Quaternion.FromToRotation(spawnedBullet.transform.forward, transform.forward);
